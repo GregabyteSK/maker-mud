@@ -10,6 +10,7 @@ make sure to put it on yourself or you won't see any messages!
 
 """
 import random
+from world.maker import models
 from evennia import DefaultScript
 
 class ACAir(DefaultScript):
@@ -52,10 +53,13 @@ class BackgroundNoise(DefaultScript):
         self.start_delay = False
 
     def at_repeat(self):
-        noises = ["A saw fills the air with a tooth-chattering wail.",
-                  "You hear the yelp of a Maker getting their shirt tail stuck in the lathe... again.",
-                  "Someone tunelessly bangs on the piano keys.",
-                  "Somewhere, a Phil screeches its plantive cry.",
-                  "Someone suddenly shouts \"LOUD NOISES\" and turns on the tablesaw.",
-        ]
-        self.location.msg_contents(random.choice(noises))
+#        noises = ["A saw fills the air with a tooth-chattering wail.",
+#                  "You hear the yelp of a Maker getting their shirt tail stuck in the lathe... again.",
+#                  "Someone tunelessly bangs on the piano keys.",
+#                  "Somewhere, a Phil screeches its plantive cry.",
+#                  "Someone suddenly shouts \"LOUD NOISES\" and turns on the tablesaw.",
+#        ]
+        noises = models.Noise.objects.all()
+        noise = random.choice(noises)
+        if noise:
+            self.obj.msg_contents(noise)

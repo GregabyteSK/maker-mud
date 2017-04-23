@@ -15,6 +15,7 @@ own cmdsets by inheriting from them or directly from `evennia.CmdSet`.
 """
 
 from evennia import default_cmds
+from evennia.contrib.simpledoor import CmdOpen, CmdOpenCloseDoor 
 
 class CharacterCmdSet(default_cmds.CharacterCmdSet):
     """
@@ -29,6 +30,8 @@ class CharacterCmdSet(default_cmds.CharacterCmdSet):
         Populates the cmdset
         """
         super(CharacterCmdSet, self).at_cmdset_creation()
+	self.add(CmdOpen)
+	self.add(CmdOpenCloseDoor)	
         #
         # any commands you add below will overload the default ones.
         #
